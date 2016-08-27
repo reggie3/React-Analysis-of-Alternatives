@@ -4,7 +4,7 @@ export default function scores(scores = [[]], action) {
 
         // confirm that every alternative has a default entry for every scores
         // and if it doesn't then create it
-        case "COMPLETE_SCORE_GRID":
+        case "UPDATE_SCORE_GRID":
             newScores = scores.map(function (arr) {
                 return arr.slice();
             });
@@ -15,7 +15,7 @@ export default function scores(scores = [[]], action) {
                 }
                 action.criteria.forEach((criteria) => {
                     if (newScores[alternative.id][criteria.id] === undefined) {
-                        newScores[alternative.id][criteria.id] = "-1";
+                        newScores[alternative.id][criteria.id] = "0";
                         console.log("creating score: " + alternative.id + ", " + criteria.id);
                     }
                 })

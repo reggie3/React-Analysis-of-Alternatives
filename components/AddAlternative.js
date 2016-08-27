@@ -31,7 +31,7 @@ class AddAlternative extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.props.dispatch(actions.
-            addAlternativeAndAddAlternativeCritieriaCombintiationToScoreGrid(
+            addAlternative(
                 this.state,
                 this.props.alternatives, 
                 this.props.criteria

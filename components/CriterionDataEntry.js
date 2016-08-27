@@ -63,7 +63,7 @@ class CriterionDataEntry extends Component {
                     <Modal.Title>Enter scores for {this.state.criterion.name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div id="errorMessageBlock" className="errorMessage"></div>
+                    {/*<div id="errorMessageBlock" className="errorMessage"></div>*/}
                     <Table striped bordered condensed hover>
                         <thead>
                             <tr>

@@ -1,23 +1,15 @@
-let actions = {
-    /*addAlternativeCritieriaCombintiationToScoreGrid: function (alternatives, criteria) {
-        return {
-            type: 'COMPLETE_SCORE_GRID',
-            criteria: criteria,
-            alternatives: alternatives
-        };
-    },
-    */
+function updateScores(){
 
-    /*
-     addAlternative: function (newAlternative, alternatives) {
-         console.log("addAlternative called");
-         return {
-             type: 'ADD_ALTERNATIVE',
-             name: newAlternative.name,
-             description: newAlternative.description,
-             alternatives: alternatives
-         }
-     },*/
+}
+
+
+let actions = {
+    updateActiveGraphIndex(index){
+        return{
+            type: 'UPDATE_ACTIVE_GRAPH_INDEX',
+            index: index
+        }
+    },
 
 
     updateAlternativeDescription: function (id, description) {
@@ -66,12 +58,10 @@ let actions = {
         }
     },
     /******************************
-     * addCriterionAndAddAlternativeCritieriaCombintiationToScoreGrid and
-     * addAlternativeAndAddAlternativeCritieriaCombintiationToScoreGrid
-     * both dispatch two two different actions; one to add a new criterion or alternative, 
-     * and one to make the appropriate entry into the score grid
+     * addCriteria
+     * Adds a new criterion to the state
      */
-    addCriterionAndAddAlternativeCritieriaCombintiationToScoreGrid: function (newCriterion, alternatives, criteria) {
+    addCriterion: function (newCriterion, alternatives, criteria) {
         return (dispatch, getState) => {
             // const firstState = getState(); ** don't need this since both values are received as arguments **
             dispatch({
@@ -80,25 +70,16 @@ let actions = {
                 criteria: criteria
             });
 
-            // this is where the magic happens thaks to redux-thunk
-            // here we get the updated state to pass into the next action that is dispatched
-            const secondState = getState();
-            dispatch({
-                type: "COMPLETE_SCORE_GRID",
-                criteria: secondState.criteria,
-                alternatives: alternatives
-            });
+            actions.updateAllScores(dispatch, getState);
 
-            // enter the weighted score
-            const thirdState = getState();
-            dispatch({
-                type: "COMPLETE_WEIGHTED_SCORE_GRID",
-                criteria: thirdState.criteria,
-                scores: thirdState.scores
-            });
         }
     },
-    addAlternativeAndAddAlternativeCritieriaCombintiationToScoreGrid: function (newAlternative, alternatives, criteria) {
+
+    /******************************
+     * addAlternative
+     * Adds a new alternative to the state
+     */
+    addAlternative: function (newAlternative, alternatives, criteria) {
         return (dispatch, getState) => {
             // const firstState = getState();
             dispatch({
@@ -107,44 +88,42 @@ let actions = {
                 alternatives: alternatives
             });
 
-            // get the updated state to pass into the next step
-            const secondState = getState();
+            // have all the scores update
+            actions.updateAllScores(dispatch, getState); 
+        }
+    },
+    /***************************
+     * updateAllScores
+     * Performs a cascading update to all the scores
+     * 
+     *  */
+    updateAllScores: function(dispatch, getState){
+         // get the updated state to pass into the next step
+            const state1 = getState();
             dispatch({
-                type: "COMPLETE_SCORE_GRID",
-                criteria: criteria,
-                alternatives: secondState.alternatives
+                type: "UPDATE_SCORE_GRID",
+                criteria: state1.criteria,
+                alternatives: state1.alternatives
+            });
+
+            // enter the normalized score
+            const state2 = getState();
+            dispatch({
+                type: "UPDATE_NORMALIZED_SCORES",
+                scores: state2.scores,
+                criteria: state2.criteria,
+                alternatives: state2.alternatives
             });
 
             // enter the weighted score
-            const thirdState = getState();
+            const state3 = getState();
             dispatch({
-                type: "COMPLETE_WEIGHTED_SCORE_GRID",
-                criteria: thirdState.criteria,
-                scores: thirdState.scores
+                type: "UPDATE_WEIGHTED_SCORES",
+                normalizedScores: state3.normalizedScores,
+                criteria: state3.criteria
             });
-        }
     },
 
-
-    /*deleteCriterion: function (id) {
-        return {
-            type: 'DELETE_CRITERION',
-            id: id
-        }
-    },
-    deleteAlternative: function (id) {
-        return {
-            type: 'DELETE_ALTERNATIVE',
-            id: id
-        }
-    },
-    deleteScoreFromGrid: function(deleteType, id){
-        return{
-            type: "DELETE_FROM_SCORE_GRID",
-                deleteType: "criterion",
-                id: id
-        }
-    }*/
     /******************************
      * delete criteria and relavent alternative/criteria score combinations
      */
@@ -182,13 +161,14 @@ let actions = {
                 deleteType: "alternative",
                 id: id
             });
-
+            /*
             // delete the scores
             dispatch({
                 type: "DELETE_FROM_WEIGHTED_SCORE_GRID",
                 deleteType: "alternative",
                 id: id
             });
+            */
         }
     },
 
@@ -201,12 +181,21 @@ let actions = {
                 score: score
             });
 
-            // enter the weighted score
+             // enter the normalized score
             const secondState = getState();
             dispatch({
-                type: "COMPLETE_WEIGHTED_SCORE_GRID",
+                type: "UPDATE_NORMALIZED_SCORES",
+                scores: secondState.scores,
                 criteria: secondState.criteria,
-                scores: secondState.scores
+                alternatives: secondState.alternatives
+            });
+
+            // enter the weighted score
+            const thirdState = getState();
+            dispatch({
+                type: "UPDATE_WEIGHTED_SCORES",
+                normalizedScores: thirdState.normalizedScores,
+                criteria: thirdState.criteria
             });
         }
     },
@@ -227,25 +216,6 @@ let actions = {
             });
         }
     }
-    /* 
-    The following two actions are a test of sequential action calling using the 
-    technique described by Reddit user cyex here:
-    https://www.reddit.com/r/reduxjs/comments/4yg9jj/calling_state_altering_reducer_functions/d6oxh7h
-    This test is accompanied by two commented out function calls in the AddCriteria.js component
-
-    completeScoreGrid: function (alternatives, criteria){
-        console.log("here");
-    },
-        addCriterion: function (newCriterion, criteria) {
-        console.log("addCriterion");
-        return {
-            type: 'ADD_CRITERION',
-            name: newCriterion.name,
-            description: newCriterion.description,
-            weight: newCriterion.weight,
-        };
-    },
-        */
 
 }
 

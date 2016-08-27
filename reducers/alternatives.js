@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 function getAlternativeId(alternatives) {
     let max = alternatives.reduce((maxId, alternative) => {
         return Math.max(alternative.id, maxId)
@@ -20,7 +22,9 @@ export default function alternatives(alternatives = [], action) {
                 id: getAlternativeId(alternatives),
             };
 
-            return alternatives.concat(newAlternative);
+             updatedAlternatives = alternatives.concat(newAlternative);
+             _.orderBy(updatedAlternatives, ['name'],['asc']);
+             return updatedAlternatives;
 
         case "DELETE_ALTERNATIVE":
             return alternatives.filter((alt) => {

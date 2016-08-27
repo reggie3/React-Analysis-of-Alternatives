@@ -33,7 +33,7 @@ class Alternative extends Component {
 
     render() {
         return (
-            <li>
+            <li className='alternativeListItem'>
                 <div className='liLeft'>
                     <div className='name'>
                         <ContentEditable

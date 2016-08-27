@@ -23,7 +23,15 @@ let initialState = {
         weight: 2
     }],
     scores: [[]],
-    weightedScores: [[]]
+    normalizedScores: [[]],
+    weightedScores: [[]],
+    activeGraphIndex: 0,
+    graphNames: [
+        "Criteria Weights",
+        "Raw Scores",
+        "Normalized Scores",
+        "Weighted Scores"
+    ]
     /*
     alternatives:[],
     criteria:[]

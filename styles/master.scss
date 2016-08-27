@@ -18,6 +18,7 @@ body{
     padding: 5px 10px 5px 5px;
 }
 
+
 /* things to do when we want to do a single column layout*/
 @media only screen and (min-width: $singleColumnPixWidth) {
     #criteraBlock{
@@ -37,7 +38,8 @@ ul
     padding-left: 0;
 }
 
-li{
+.alternativeListItem,
+.criteriaListItem{
     border: solid 1px;
     border-color: #dddddd;
     border-radius: 5px;
@@ -87,7 +89,8 @@ p.description{
     padding: .5em 2em .5em 2em;
     margin-bottom: .5em;
 }
-
-
-@import 'forms'
-
+.carouselContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

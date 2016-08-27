@@ -2,7 +2,12 @@ import React, {Component} from 'react';
 import AlternativeBlock from "./AlternativeBlock";
 import CriteriaBlock from "./CriteriaBlock";
 import AnalysisTable from "./AnalysisTable";
+import CarouselControls from "./CarouselControls";
+import ControlledCarousel from "./ControlledCarousel";
+
 import actions from '../redux/actions';
+import 'bootstrap/dist/css/bootstrap.css';
+import '../styles/main.scss';
 
 
 
@@ -18,8 +23,14 @@ class App extends Component {
     render() {
         return (
             <div>
-                <div id='analysisTable'>
-                    <AnalysisTable state={this.props}/>
+                <div id='graphBlock '>
+                    <CarouselControls 
+                        graphNames = {this.props.graphNames}
+                        activeGraph = {this.props.activeGraphIndex}/>
+                    <ControlledCarousel 
+                        graphNames = {this.props.graphNames}
+                        activeGraph = {this.props.activeGraphIndex}
+                        state={this.props}/>
                 </div>
                 <div className='infoBlock'>
                     <AlternativeBlock

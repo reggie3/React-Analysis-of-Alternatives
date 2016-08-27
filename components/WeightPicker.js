@@ -20,16 +20,19 @@ class WeightPicker extends Component {
     }
 
 
-    setWeight(value, mouseEvent, arg1, event) {
-        // make the prevously active button inactive
-        // this.state.weightButtons[this.state.weight].setState({ active: 'false' });
-
+    updateWeight(value) {
         this.setState({
             weight: value
         });
-        this.props.parentHandler(value, this.props.parent);
-        // make the currently selected button active
-        // this.state.weightButtons[this.state.weight].setState({ active: 'true' });
+        // if props.id is defined then we can update the application's state directly
+        if(this.props.id){
+            this.props.dispatch(actions.updateCriterionWeight(this.props.id, value));
+        }
+        // othewise set the state of the parent property since this criteria hasn't been
+        // added to the application state yet, and thus doesn't have an ID
+        else{
+            this.props.parentHandler(value, this.props.parent);
+        }
     }
 
     storeWeightButton(element) {
@@ -47,27 +50,27 @@ class WeightPicker extends Component {
                         <Button
                             ref = {this.storeWeightButton.bind(this) }
                             active = {(this.state.weight === 0) ? true : false}
-                            onClick = { this.setWeight.bind(this, 0) } >
+                            onClick = { this.updateWeight.bind(this, 0) } >
                             0
                         </Button>
                         <Button ref={this.storeWeightButton.bind(this) }
                             active = {(this.state.weight === 1) ? true : false}
-                            onClick={this.setWeight.bind(this, 1) }>
+                            onClick={this.updateWeight.bind(this, 1) }>
                             1
                         </Button>
                         <Button ref={this.storeWeightButton.bind(this) }
                             active = {(this.state.weight === 2) ? true : false}
-                            onClick={this.setWeight.bind(this, 2) }>
+                            onClick={this.updateWeight.bind(this, 2) }>
                             2
                         </Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 3) ? true : false} onClick={this.setWeight.bind(this, 3) }>3</Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 4) ? true : false} onClick={this.setWeight.bind(this, 4) }>4</Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 5) ? true : false} onClick={this.setWeight.bind(this, 5) }>5</Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 6) ? true : false} onClick={this.setWeight.bind(this, 6) }>6</Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 7) ? true : false} onClick={this.setWeight.bind(this, 7) }>7</Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 8) ? true : false} onClick={this.setWeight.bind(this, 8) }>8</Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 9) ? true : false} onClick={this.setWeight.bind(this, 9) }>9</Button>
-                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 10) ? true : false} onClick={this.setWeight.bind(this, 10) }>10</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 3) ? true : false} onClick={this.updateWeight.bind(this, 3) }>3</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 4) ? true : false} onClick={this.updateWeight.bind(this, 4) }>4</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 5) ? true : false} onClick={this.updateWeight.bind(this, 5) }>5</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 6) ? true : false} onClick={this.updateWeight.bind(this, 6) }>6</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 7) ? true : false} onClick={this.updateWeight.bind(this, 7) }>7</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 8) ? true : false} onClick={this.updateWeight.bind(this, 8) }>8</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 9) ? true : false} onClick={this.updateWeight.bind(this, 9) }>9</Button>
+                        <Button ref={this.storeWeightButton.bind(this) } active = {(this.state.weight === 10) ? true : false} onClick={this.updateWeight.bind(this, 10) }>10</Button>
 
                     </ButtonGroup>
 

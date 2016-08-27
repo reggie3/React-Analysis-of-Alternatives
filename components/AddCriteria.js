@@ -37,7 +37,7 @@ class AddCriteria extends Component {
     handleSubmit(event) {
         console.log("submit clicked: " + event);
         event.preventDefault();
-        this.props.dispatch(actions.addCriterionAndAddAlternativeCritieriaCombintiationToScoreGrid(   
+        this.props.dispatch(actions.addCriterion(   
             this.state,
             this.props.alternatives, 
             this.props.criteria

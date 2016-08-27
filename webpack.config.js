@@ -37,9 +37,16 @@ module.exports = {
                     'css',
                     'autoprefixer?browsers=last 3 versions',
                     'sass?outputStyle=expanded'
-                ]  
+                ]
             },
-
+            {
+                test: /\.css$/,
+                loaders: [
+                    'style',
+                    'css',
+                    'autoprefixer?browsers=last 3 versions',
+                ]
+            },
 
             // http://humaan.com/getting-started-with-webpack-and-react-es6-style/
             {
@@ -50,6 +57,10 @@ module.exports = {
                 ]
             },
             {
+                test: /\.html$/,
+                loader: "html"
+            },
+            {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel',
@@ -57,7 +68,16 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             },
-            {test: /\.less$/, loaders:[ 'style', 'css', 'less']}
+            {
+                test: /\.less$/,
+                loaders: ['style', 'css', 'less']
+            },
+
+            // required to get bootstrap fonts working also
+            {
+                test: /\.(eot|ttf|wav|mp3|woff(2)?)$/,
+                loader: 'file-loader'
+            }
         ]
     },
 

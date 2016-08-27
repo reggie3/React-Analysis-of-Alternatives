@@ -20,10 +20,10 @@ class Criterion extends Component {
         this.setState({ open: !this.state.open });
     }
 
-    setWeight(value, thisPointer) {
+    /*setWeight(value, thisPointer) {
         event.preventDefault();
         this.props.dispatch(actions.updateCriterionWeight(this.props.criterion.id, value));
-    }
+    }*/
 
     editDescription(event) {
         event.preventDefault();
@@ -42,7 +42,7 @@ class Criterion extends Component {
 
     render() {
         return (
-            <li key={this.props.criterion.id}>
+            <li className ='criteriaListItem' key={this.props.criterion.id}>
                 <div className='liLeft'>
                     <div className='name'>
                         <ContentEditable
@@ -65,9 +65,8 @@ class Criterion extends Component {
                             </div>
                             <WeightPicker
                                 weight={this.props.criterion.weight}
-                                parent={this}
-                                dispatcher={this.props.dispatch}
-                                parentHandler={this.setWeight.bind(this) }
+                                id={this.props.criterion.id}
+                                dispatch={this.props.dispatch}
                                 />
                         </div>
                     </Collapse>
