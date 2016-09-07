@@ -10,6 +10,7 @@ export default function criteria(criteria = [], action) {
     let updatedCriteria = [], updatedCriterion = {};
     switch (action.type) {
         case "ADD_CRITERION":
+            
             let newCriteriaObject = {
                 name: action.criterion.name,
                 description: action.criterion.description,

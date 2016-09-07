@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import actions from '../redux/actions';
-import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Tooltip, Overlay, Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+const replaceAll = require("underscore.string/replaceAll");
+import ErrorPopup from './ErrorPopup';
 
 class AddAlternative extends Component {
 
@@ -9,7 +12,24 @@ class AddAlternative extends Component {
         this.state = {
             name: "",
             description: "",
-            criteriaScores: {}
+            criteriaScores: {},
+            show: false
+        }
+    }
+
+    showToolTip(type, refPopup, refTarget) {
+        switch (type) {
+            case "nameAlreadyExists":
+                this.refs[refPopup].show(this.refs[refTarget]);
+                break;
+        }
+    }
+
+    hideToolTip(type, refName, refTarget) {
+        switch (type) {
+            case "nameAlreadyExists":
+                this.refs[refName].hide(this.refs[refTarget]);
+                break;
         }
     }
 
@@ -17,12 +37,26 @@ class AddAlternative extends Component {
         switch (event.target.name) {
             case "name":
                 this.setState({
-                    name: event.target.value
-                })
+                    name: event.target.value.trim()
+                });
+                
+                //search to see if this alternative name already exists
+                let found = this.props.alternatives.filter((alternative) => {
+                    return event.target.value === alternative.name;
+                });
+
+                if (found.length > 0) {
+                    event.target.className = event.target.className + " error";
+                    this.showToolTip("nameAlreadyExists", "error", "nameInput");
+                }
+                else {  // if this name does not exist
+                    event.target.className = replaceAll(event.target.className, " error", "");
+                    this.hideToolTip("nameAlreadyExists", "error", "nameInput");
+                }
                 break;
             case "description":
                 this.setState({
-                    description: event.target.value
+                    description: event.target.value.trim()
                 })
                 break;
         }
@@ -32,11 +66,17 @@ class AddAlternative extends Component {
         event.preventDefault();
         this.props.dispatch(actions.
             addAlternative(
-                this.state,
-                this.props.alternatives, 
-                this.props.criteria
+            this.state,
+            this.props.alternatives,
+            this.props.criteria
             )
         );
+
+        // clear the form
+        this.setState({
+            name: "",
+            description: ""
+        })
     }
 
     render() {
@@ -50,10 +90,12 @@ class AddAlternative extends Component {
                             name="name"
                             placeholder ="Insert alternative name here"
                             value = {this.state.name}
+                            ref = 'nameInput'
                             />
+                            <ErrorPopup ref='error' message="alreadyUsed"/>
                     </FormGroup>
                     <FormGroup>
-                        <FormControl componentClass="textArea" 
+                        <FormControl componentClass="textArea"
                             onChange={this.handleChange.bind(this) }
                             placeholder ="Describe this alternative"
                             name="description"

@@ -1,13 +1,9 @@
-function updateScores(){
-
-}
-
 
 let actions = {
     updateActiveGraphIndex(index){
         return{
             type: 'UPDATE_ACTIVE_GRAPH_INDEX',
-            index: index
+            activeGraphIndex: index
         }
     },
 
@@ -92,6 +88,17 @@ let actions = {
             actions.updateAllScores(dispatch, getState); 
         }
     },
+
+    /**
+     * completeScoreGrid
+     * called on app load in the "componentWillMount()" of App.js
+     */
+    completeScoreGrid(alternatives, criteria) {
+        return (dispatch, getState) => {
+            actions.updateAllScores(dispatch, getState); 
+        }
+    },
+
     /***************************
      * updateAllScores
      * Performs a cascading update to all the scores
@@ -200,22 +207,7 @@ let actions = {
         }
     },
 
-    completeScoreGrid(alternatives, criteria) {
-        return (dispatch, getState) => {
-            dispatch({
-            type: "COMPLETE_SCORE_GRID",
-            criteria: criteria,
-            alternatives: alternatives
-         });
-          // enter the weighted score
-            const secondState = getState();
-            dispatch({
-                type: "COMPLETE_WEIGHTED_SCORE_GRID",
-                criteria: secondState.criteria,
-                scores: secondState.scores
-            });
-        }
-    }
+    
 
 }
 

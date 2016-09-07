@@ -6,7 +6,16 @@ class CarouselControls extends Component {
     constructor(...args) {
         super(...args);
 
-        this.state = {};
+        this.state = {
+            activeGraphIndex: this.props.activeGraphIndex
+        };
+    }
+
+    handleSelect(index, graphName){
+        this.setState({
+            activeGraphIndex: index
+        });
+        this.props.dispatch(actions.updateActiveGraphIndex(index));
     }
 
     render() {
@@ -20,8 +29,12 @@ class CarouselControls extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>{
-                        this.props.graphNames.map((graphName, index)=>{
-                            return <NavItem key={index} href="#">{graphName}</NavItem>
+                        this.props.graphNames.map((graphName, index) => {
+                            return <NavItem key={index}
+                                href="#"
+                                onSelect ={this.handleSelect.bind(this, index, graphName)}>
+                                {graphName}
+                            </NavItem>
                         })
                     }
                     </Nav>

@@ -6,7 +6,8 @@ import criteria from './criteria';
 import scores from './scores';
 import normalizedScores from './normalizedScores';
 import weightedScores from './weightedScores';
-import graphs from './graphs';
+import activeGraphIndex from './activeGraphIndex';
+import graphNames from './graphNames';
 
 const reducer =  combineReducers({
         criteria,
@@ -14,6 +15,7 @@ const reducer =  combineReducers({
         scores,
         normalizedScores,
         weightedScores,
-        graphs
+        activeGraphIndex,
+        graphNames
 });
 export default reducer;

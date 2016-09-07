@@ -1,60 +1,75 @@
 import React, {Component} from 'react';
 import actions from '../redux/actions';
 import { Carousel } from 'react-bootstrap';
-
-
-var img = require('../assets/carousel.jpg');
+import ChartCriteriaWeights from'./ChartCriteriaWeights';
+import ChartWeightedScores from'./ChartWeightedScores';
+import ChartAlternativeScores from'./ChartAlternativeScores';
+import ChartNormalizedScores from'./ChartNormalizedScores';
 
 class ControlledCarousel extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            index: 1,
-            direction: null
+            activeGraphIndex: this.props.activeGraphIndex,
+            direction: null,
+            chartSize : {width: 700, height: 350}
         }
     }
 
     handleSelect(selectedIndex, e) {
         this.setState({
-            index: selectedIndex,
+            activeGraphIndex: selectedIndex,
             direction: e.direction
         });
+        this.props.dispatch(actions.updateActiveGraphIndex(selectedIndex));
     }
 
     render() {
         return (
             <div className='carouselContainer'>
-                <Carousel activeIndex={this.state.index}
+                <Carousel 
+                    className = 'myCarousel'
+                    activeIndex={this.props.activeGraphIndex}
                     direction={this.state.direction}
-                    onSelect={this.handleSelect.bind(this)}>
+                    onSelect={this.handleSelect.bind(this) }
+                    indicators={false}
+                    >
+                    <Carousel.Item className="carouselItem">
+                        <ChartCriteriaWeights
+                            criteria = {this.props.state.criteria}
+                            graphName = {this.props.state.graphNames[0]}
+                            chartSize = {this.state.chartSize}
+                            />
+                    </Carousel.Item >
+                    <Carousel.Item className="carouselItem">
+                        <ChartAlternativeScores
+                            scores = {this.props.state.scores}
+                            criteria = {this.props.state.criteria}
+                            alternatives = {this.props.state.alternatives}
+                            graphName = {this.props.state.graphNames[1]}
+                            chartSize = {this.state.chartSize}
+                            />
+                    </Carousel.Item>
+                    {/*
                     <Carousel.Item>
-                        <img width={900} height={500} alt="900x500" src={img}/>
-                        <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </Carousel.Caption>
+                        <ChartNormalizedScores
+                            scores = {this.props.state.normalizedScores}
+                            criteria = {this.props.state.criteria}
+                            alternatives = {this.props.state.alternatives}
+                            graphName = {this.props.state.graphNames[2]}
+                            chartSize = {this.state.chartSize}
+                            />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img width={900} height={500} alt="900x500" src={img}/>
-                        <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </Carousel.Caption>
+                        <ChartWeightedScores
+                            scores = {this.props.state.weightedScores}
+                            criteria = {this.props.state.criteria}
+                            alternatives = {this.props.state.alternatives}
+                            graphName = {this.props.state.graphNames[3]}
+                            chartSize = {this.state.chartSize}
+                            />
                     </Carousel.Item>
-                    <Carousel.Item>
-                        <img width={900} height={500} alt="900x500" src={img}/>
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img width={900} height={500} alt="900x500" src={img}/>
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
+                    */}
                 </Carousel>
             </div>
 

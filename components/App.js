@@ -15,7 +15,7 @@ import '../styles/main.scss';
 import { connect } from 'react-redux';
 class App extends Component {
 
-    componentWillMount(){
+    componentWillMount() {
         console.log("init");
         this.props.dispatch(actions.completeScoreGrid(this.props.alternatives, this.props.criteria));
     }
@@ -24,13 +24,15 @@ class App extends Component {
         return (
             <div>
                 <div id='graphBlock '>
-                    <CarouselControls 
+                    <CarouselControls
                         graphNames = {this.props.graphNames}
-                        activeGraph = {this.props.activeGraphIndex}/>
-                    <ControlledCarousel 
+                        activeGraphIndex = {this.props.activeGraphIndex}
+                        dispatch={this.props.dispatch}/>
+                    <ControlledCarousel
                         graphNames = {this.props.graphNames}
-                        activeGraph = {this.props.activeGraphIndex}
-                        state={this.props}/>
+                        activeGraphIndex = {this.props.activeGraphIndex}
+                        state = {this.props}
+                        dispatch = {this.props.dispatch}/>
                 </div>
                 <div className='infoBlock'>
                     <AlternativeBlock

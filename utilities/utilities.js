@@ -1,4 +1,5 @@
 let utilities = {
+
     getCriteriaByID(criteria, id) {
         let found = criteria.filter((criterion) => {
             return criterion.id === id;

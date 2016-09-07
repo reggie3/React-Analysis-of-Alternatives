@@ -25,7 +25,7 @@ class WeightPicker extends Component {
             weight: value
         });
         // if props.id is defined then we can update the application's state directly
-        if(this.props.id){
+        if(this.props.id !== undefined){
             this.props.dispatch(actions.updateCriterionWeight(this.props.id, value));
         }
         // othewise set the state of the parent property since this criteria hasn't been

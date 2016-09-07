@@ -16,6 +16,7 @@ class AddCriteria extends Component {
 
     handleChange(event) {
         switch (event.target.name) {
+            // TODO: check to see if criteria of this name already exists
             case "name":
                 this.setState({
                     name: event.target.value
@@ -43,6 +44,11 @@ class AddCriteria extends Component {
             this.props.criteria
         ));
         
+         // clear the form
+        this.setState({
+            name: "",
+            description: ""
+        })
         /* 
         The following two function calls are a test of sequential action calling using the 
         technique described by Reddit user cyex here:
