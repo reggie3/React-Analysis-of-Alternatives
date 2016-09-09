@@ -1,45 +1,69 @@
-import rd3 from 'rd3';
 import React, {Component} from 'react';
-//import ClusteredBarChart from './ClusteredBarChart';
+import {ResponsiveContainer} from 'recharts';
+import MyBarChart from "./MyBarChart";
 
 class ChartNormalizedScores extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            barData: []
+            dataSets: [],
+            criteriaNames: [],
+            alternativeNames: [],
+            maxY: 1
         }
     }
-    componentWillMount(){
-        this.transformData(this.props.criteria, this.props.graphName);
-    }
+
 
     componentWillReceiveProps(nextProps) {
-        this.transformData(nextProps.criteria, nextProps.graphName);
+         this.transformData(nextProps.criteria, nextProps.alternatives,
+            nextProps.scores, nextProps.graphName);
     }
 
-    transformData(criteria, title) {
-        let newBarData = [{
-            name: title,
-            values: undefined
-        }]
-        let valueArray = criteria.map((criterion)=>{
-            return {"x": criterion.name, y:criterion.weight};
+    transformData(criteria, alternatives, scores, title) {
+        let dataSets = [];
+
+        let criteriaNames = criteria.map((criterion) => {
+            return criterion.name;
         });
-        newBarData[0].values = valueArray;
+
+        let alternativeNames = alternatives.map((alternative) => {
+            return alternative.name;
+        });
+
+        criteria.forEach(function (criterion) {
+
+            let dataSet = {};
+            dataSet.name = criterion.name;
+
+            alternatives.forEach(function (alternative) {
+                dataSet[alternative.name] = scores[alternative.id][criterion.id];
+            }, this);
+
+            dataSets.push(dataSet);
+
+        }, this);
+
+
+       
         this.setState({
-            barData: newBarData,
+            dataSets: dataSets,
+            criteriaNames: criteriaNames,
+            alternativeNames: alternativeNames,
         });
     }
 
     render() {
         return (
-            <ClusteredBarChart
-                data={this.state.barData}
-                width={500}
-                height={300}
-                title={this.props.graphName}
-                xAxisLabel="Criteria"
-                yAxisLabel="Weight"/>
+            <div className="chart">
+                <h3 className="chartTitle">{this.props.graphName}</h3>
+                <ResponsiveContainer>
+                    <MyBarChart
+                        dataSets = {this.state.dataSets}
+                        alternativeNames = {this.state.alternativeNames}
+                        maxY = {this.state.maxY}
+                        />
+                </ResponsiveContainer>
+            </div>
         )
     }
 }

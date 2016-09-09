@@ -9,6 +9,15 @@ class MyBarChart extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        if((nextProps.height === 0)||(nextProps.weight === 0)){
+            return false;
+        }
+        else {
+            return true;
+        } 
+    }
+
     render() {
 
         return (
@@ -24,7 +33,7 @@ class MyBarChart extends Component {
                 <Legend />
                 {
                     this.props.alternativeNames.map((alternativeName, index) => {
-                        console.log(index + " " + alternativeName);
+                        // console.log(index + " " + alternativeName);
                         let color = colorUtilities.chartColors[index]["Hex"];
                         return <Bar key="index" dataKey={alternativeName} fill={color} />
                     })

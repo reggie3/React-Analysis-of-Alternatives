@@ -3,7 +3,7 @@ import actions from '../redux/actions';
 import { Carousel } from 'react-bootstrap';
 import ChartCriteriaWeights from'./ChartCriteriaWeights';
 import ChartWeightedScores from'./ChartWeightedScores';
-import ChartAlternativeScores from'./ChartAlternativeScores';
+import ChartRawScores from'./ChartRawScores';
 import ChartNormalizedScores from'./ChartNormalizedScores';
 
 class ControlledCarousel extends Component {
@@ -42,7 +42,7 @@ class ControlledCarousel extends Component {
                             />
                     </Carousel.Item >
                     <Carousel.Item className="carouselItem">
-                        <ChartAlternativeScores
+                        <ChartRawScores
                             scores = {this.props.state.scores}
                             criteria = {this.props.state.criteria}
                             alternatives = {this.props.state.alternatives}
@@ -50,8 +50,7 @@ class ControlledCarousel extends Component {
                             chartSize = {this.state.chartSize}
                             />
                     </Carousel.Item>
-                    {/*
-                    <Carousel.Item>
+                    <Carousel.Item className="carouselItem">
                         <ChartNormalizedScores
                             scores = {this.props.state.normalizedScores}
                             criteria = {this.props.state.criteria}
@@ -60,7 +59,7 @@ class ControlledCarousel extends Component {
                             chartSize = {this.state.chartSize}
                             />
                     </Carousel.Item>
-                    <Carousel.Item>
+                    <Carousel.Item className="carouselItem">
                         <ChartWeightedScores
                             scores = {this.props.state.weightedScores}
                             criteria = {this.props.state.criteria}
@@ -69,7 +68,7 @@ class ControlledCarousel extends Component {
                             chartSize = {this.state.chartSize}
                             />
                     </Carousel.Item>
-                    */}
+
                 </Carousel>
             </div>
 

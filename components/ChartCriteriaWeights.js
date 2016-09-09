@@ -1,16 +1,15 @@
-import rd3 from 'rd3';
 import React, {Component} from 'react';
-import {VictoryBar, VictoryChart} from 'victory';
+import {ResponsiveContainer, BarChart, Bar,
+    XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+
 
 class ChartCriteriaWeights extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            barData: undefined
+            dataSets: [],
+            maxY: 0
         }
-    }
-    componentWillMount() {
-        this.transformData(this.props.criteria);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -18,45 +17,36 @@ class ChartCriteriaWeights extends Component {
     }
 
     transformData(criteria) {
-        let newBarData = criteria.map((criterion, index) => {
+        this.setState({maxY: 0});
+        let dataSets = criteria.map((criterion, index) => {
             return { name: criterion.name, weight: criterion.weight };
         });
+        let maxY = Math.max.apply(Math, criteria.map((criterion) => {
+            return criterion.weight;
+        }));
 
         this.setState({
-            barData: newBarData
+            dataSets: dataSets,
+            maxY: maxY + 5
         });
     }
 
     render() {
         return (
-            <div>
+            <div className="chart">
                 <h3 className="chartTitle">{this.props.graphName}</h3>
-                <VictoryChart
-
-                    padding={{
-                        top: 25,
-                        bottom: 40,
-                        left: 40,
-                        right: 40
-                    }}
-                    domainPadding={{ x: 20 }}
-                    colorScale={"qualitative"}
-                    >
-
-                    <VictoryBar
-
-
-                        padding={{ top: 0, right: 75, bottom: 15, left: 75 }}
-                        style={{
-                            data: { fill: "blue", width: 20 },
-                            labels: { fontSize: 20 }
-                        }}
-                        padding={75}
-                        data={this.state.barData}
-                        x={"name"}
-                        y={"weight"}
-                        />
-                </VictoryChart>
+                <ResponsiveContainer>
+                    <BarChart
+                        height={this.props.height}
+                        width={this.props.width}
+                        data={this.state.dataSets}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 15 }}
+                        dataSets = {this.state.dataSets}>
+                        <XAxis dataKey="name"/>
+                        <YAxis domain={[0, this.state.maxY]}/>
+                         <Bar  dataKey='weight' stroke='#8884d8' fill='#8884d8' />
+                    </BarChart>
+                </ResponsiveContainer>
             </div>
         )
     }
