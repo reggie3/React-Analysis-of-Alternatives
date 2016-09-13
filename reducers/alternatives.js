@@ -22,9 +22,9 @@ export default function alternatives(alternatives = [], action) {
                 id: getAlternativeId(alternatives),
             };
 
-             updatedAlternatives = alternatives.concat(newAlternative);
-             _.orderBy(updatedAlternatives, ['name'],['asc']);
-             return updatedAlternatives;
+            updatedAlternatives = alternatives.concat(newAlternative);
+            updatedAlternatives = _.orderBy(updatedAlternatives, ['name'], ['asc']);
+            return updatedAlternatives;
 
         case "DELETE_ALTERNATIVE":
             return alternatives.filter((alt) => {
@@ -39,8 +39,8 @@ export default function alternatives(alternatives = [], action) {
 
             updatedAlternatives = alternatives.filter((alt) => {
                 return alt.id !== action.id;
-            }
-            ).concat(updatedAlternative);
+            }).concat(updatedAlternative);
+            updatedAlternatives = _.orderBy(updatedAlternatives, ['name'], ['asc']);
             return updatedAlternatives;
 
         case "UPDATE_ALTERNATIVE_NAME":
@@ -50,10 +50,9 @@ export default function alternatives(alternatives = [], action) {
             updatedAlternative.name = action.name;
             let otherAlts = alternatives.filter((alt) => {
                 return alt.id !== action.id;
-            }
-            );
+            });
             updatedAlternatives = otherAlts.concat(updatedAlternative);
-
+            updatedAlternatives = _.orderBy(updatedAlternatives, ['name'], ['asc']);
             return updatedAlternatives;
 
         case "ADD_NEW_CRITERION_TO_ALTERNATIVES":
@@ -69,7 +68,7 @@ export default function alternatives(alternatives = [], action) {
                     {
                         // keep the previous information in the criteria score
                         // object and add the new info to it
-                        criteriaScores: {[action.newCriterion.id]: [action.newCriterion.weight]}
+                        criteriaScores: { [action.newCriterion.id]: [action.newCriterion.weight] }
                     });
 
                 // return the now updated alternative
@@ -82,7 +81,7 @@ export default function alternatives(alternatives = [], action) {
                     return updatedAlternatives[key]
                 });
 
-            
+
             return newAlternativesArray;
 
         default:

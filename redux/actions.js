@@ -29,14 +29,15 @@ let actions = {
                 weight: weight,
                 id: id
             });
+            actions.updateAllScores(dispatch, getState);
 
             // enter the weighted score
-            const secondState = getState();
+            /*const secondState = getState();
             dispatch({
                 type: "COMPLETE_WEIGHTED_SCORE_GRID",
                 criteria: secondState.criteria,
                 scores: secondState.scores
-            });
+            });*/
         }
     },
     updateCriterionDescription: function (id, description) {

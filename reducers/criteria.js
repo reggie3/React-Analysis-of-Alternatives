@@ -17,8 +17,10 @@ export default function criteria(criteria = [], action) {
                 weight: action.criterion.weight,
                 id: getCriteriaId(criteria)
             }
+            updatedCriteria = criteria.concat(newCriteriaObject);
+            updatedCriteria = _.orderBy(updatedCriteria, ['name'], ['asc']);
 
-            return criteria.concat(newCriteriaObject);
+            return updatedCriteria
 
         case "DELETE_CRITERION":
             //TODO: remove all entries for this criterion from all the alternatives' "scoring" lists
@@ -36,8 +38,9 @@ export default function criteria(criteria = [], action) {
 
             updatedCriteria = criteria.filter((crit) => {
                 return crit.id !== action.id;
-            }
-            ).concat(updatedCriterion);
+            }).concat(updatedCriterion);
+
+            updatedCriteria = _.orderBy(updatedCriteria, ['name'], ['asc']);
             return updatedCriteria;
 
         case "UPDATE_CRITERION_WEIGHT":
@@ -49,8 +52,8 @@ export default function criteria(criteria = [], action) {
 
             updatedCriteria = criteria.filter((crit) => {
                 return crit.id !== action.id;
-            }
-            ).concat(updatedCriterion);
+            }).concat(updatedCriterion);
+            updatedCriteria = _.orderBy(updatedCriteria, ['name'], ['asc']);
             return updatedCriteria;
 
         case "UPDATE_CRITERION_DESCRIPTION":
@@ -62,11 +65,9 @@ export default function criteria(criteria = [], action) {
 
             updatedCriteria = criteria.filter((crit) => {
                 return crit.id !== action.id;
-            }
-            ).concat(updatedCriterion);
+            }).concat(updatedCriterion);
+            updatedCriteria = _.orderBy(updatedCriteria, ['name'], ['asc']);
             return updatedCriteria;
-
-       
 
         default:
             return criteria;

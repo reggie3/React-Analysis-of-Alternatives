@@ -1,4 +1,3 @@
-import rd3 from 'rd3';
 import React, {Component} from 'react';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import colorUtilities from "../utilities/colorUtilities";

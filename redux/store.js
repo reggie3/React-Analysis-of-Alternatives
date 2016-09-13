@@ -10,8 +10,7 @@ const logger = createLogger();
 //const promise = promiseMiddleware();
 
 let finalCreateStore = compose(
-  applyMiddleware(thunk, logger),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+  applyMiddleware(thunk, logger)
 )(createStore);
 
 

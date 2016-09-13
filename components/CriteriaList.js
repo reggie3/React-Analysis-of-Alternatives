@@ -7,6 +7,7 @@ class CriteriaList extends Component {
         this.setState({ showModal: false });
     }
 
+
     openModal(id) {
         this.CriterionDataEntry.openModal(id,
             this.props.criteria[id],
