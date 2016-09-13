@@ -1,3 +1,3 @@
-# react-todo-list
+#Analysis of Alternatives
 
-This is a simple application that performs an analysis of alternatives given alternatives, criteria for comparison, and criteria weight (importance).
+A simple react app that uses the weighted criteria technique to analyze the suitability of alternatives.
