@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import actions from '../redux/actions';
 import { Button, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import WeightPicker from './WeightPicker';
+import ScoreInverter from './ScoreInverter';
 
 class AddCriteria extends Component {
-    
+
     constructor(props, context) {
         super(props, context);
         this.state = {
             name: "",
             description: "",
-            weight: "0"
+            weight: "0",
+            useInvertedScoring: false
         }
     }
 
@@ -38,13 +40,13 @@ class AddCriteria extends Component {
     handleSubmit(event) {
         console.log("submit clicked: " + event);
         event.preventDefault();
-        this.props.dispatch(actions.addCriterion(   
+        this.props.dispatch(actions.addCriterion(
             this.state,
-            this.props.alternatives, 
+            this.props.alternatives,
             this.props.criteria
         ));
-        
-         // clear the form
+
+        // clear the form
         this.setState({
             name: "",
             description: ""
@@ -73,6 +75,11 @@ class AddCriteria extends Component {
         });
     }
 
+    setInvertedScoring(bolInvert, thisPointer) {
+        thisPointer.setState({
+            useInvertedScoring: bolInvert
+        });
+    }
 
     render() {
         return (
@@ -94,6 +101,11 @@ class AddCriteria extends Component {
                             parent={this}
                             dispatcher={this.props.dispatch}
                             parentHandler={this.setWeight}
+                            />
+                        <ScoreInverter
+                            parent={this}
+                            dispatcher={this.props.dispatch}
+                            parentHandler={this.setInvertedScoring}
                             />
                     </FormGroup>
                     <FormGroup>

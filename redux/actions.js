@@ -30,16 +30,20 @@ let actions = {
                 id: id
             });
             actions.updateAllScores(dispatch, getState);
-
-            // enter the weighted score
-            /*const secondState = getState();
-            dispatch({
-                type: "COMPLETE_WEIGHTED_SCORE_GRID",
-                criteria: secondState.criteria,
-                scores: secondState.scores
-            });*/
         }
     },
+
+    updateInvertedScoring: function(id, bolUseInvertedScoring){
+        return (dispatch, getState) => {
+            dispatch({
+                type: 'UPDATE_CRITERION_USE_INVERTED_SCORING',
+                bolUseInvertedScoring: bolUseInvertedScoring,
+                id: id
+            });
+            actions.updateAllScores(dispatch, getState);
+        }
+    },
+    
     updateCriterionDescription: function (id, description) {
         return {
             type: 'UPDATE_CRITERION_DESCRIPTION',
@@ -72,6 +76,8 @@ let actions = {
         }
     },
 
+
+
     /******************************
      * addAlternative
      * Adds a new alternative to the state
@@ -99,6 +105,8 @@ let actions = {
             actions.updateAllScores(dispatch, getState); 
         }
     },
+
+
 
     /***************************
      * updateAllScores

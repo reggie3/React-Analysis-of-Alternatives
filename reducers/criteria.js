@@ -56,6 +56,19 @@ export default function criteria(criteria = [], action) {
             updatedCriteria = _.orderBy(updatedCriteria, ['name'], ['asc']);
             return updatedCriteria;
 
+        case "UPDATE_CRITERION_USE_INVERTED_SCORING":
+            updatedCriterion = criteria.filter((item) => {
+                return item.id === action.id;
+            })[0];
+
+            updatedCriterion.useInvertedScoring = action.bolUseInvertedScoring;
+
+            updatedCriteria = criteria.filter((crit) => {
+                return crit.id !== action.id;
+            }).concat(updatedCriterion);
+            updatedCriteria = _.orderBy(updatedCriteria, ['name'], ['asc']);
+            return updatedCriteria;
+
         case "UPDATE_CRITERION_DESCRIPTION":
             updatedCriterion = criteria.filter((item) => {
                 return item.id === action.id;

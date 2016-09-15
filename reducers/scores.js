@@ -15,13 +15,13 @@ export default function scores(scores = [[]], action) {
                 }
                 action.criteria.forEach((criteria) => {
                     if (newScores[alternative.id][criteria.id] === undefined) {
-                        newScores[alternative.id][criteria.id] = "1";
+                        newScores[alternative.id][criteria.id] = 0;
                         console.log("creating score: " + alternative.id + ", " + criteria.id + " : " + newScores[alternative.id][criteria.id]);
                     }
                 })
             });
 
-            console.table(newScores);
+            //console.table(newScores);
             return newScores;
 
         case "DELETE_FROM_SCORE_GRID":

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Button, Glyphicon, Collapse } from 'react-bootstrap';
 import actions from '../redux/actions';
 import WeightPicker from './WeightPicker';
+import ScoreInverter from './ScoreInverter';
 import ContentEditable from "react-contenteditable";
 
 class Criterion extends Component {
@@ -20,10 +21,6 @@ class Criterion extends Component {
         this.setState({ open: !this.state.open });
     }
 
-    /*setWeight(value, thisPointer) {
-        event.preventDefault();
-        this.props.dispatch(actions.updateCriterionWeight(this.props.criterion.id, value));
-    }*/
 
     editDescription(event) {
         event.preventDefault();
@@ -67,6 +64,12 @@ class Criterion extends Component {
                                 weight={this.props.criterion.weight}
                                 id={this.props.criterion.id}
                                 dispatch={this.props.dispatch}
+                                />
+                            <ScoreInverter
+                                useInvertedScoring={this.props.criterion.useInvertedScoring}
+                                id={this.props.criterion.id}
+                                dispatch={this.props.dispatch}
+                                value={this.props.criterion.useInvertedScoring}
                                 />
                         </div>
                     </Collapse>

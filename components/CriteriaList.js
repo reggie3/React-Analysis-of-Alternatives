@@ -6,11 +6,15 @@ class CriteriaList extends Component {
     closeModal() {
         this.setState({ showModal: false });
     }
-
-
+    
     openModal(id) {
+        // get the criterion based on the passed id
+        let criterion = this.props.criteria.filter((criterion)=>{
+            return criterion.id === id;
+        })[0];
+        
         this.CriterionDataEntry.openModal(id,
-            this.props.criteria[id],
+            criterion,
             this.props.alternatives,
             this.props.scores,
             this.props.dispatch);

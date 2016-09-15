@@ -8,8 +8,13 @@ class AlternativeList extends Component {
     }
 
     openModal(id) {
+        // get the alternative based on the passed id
+        let alternative = this.props.alternatives.filter((alternative)=>{
+            return alternative.id === id;
+        })[0];
+
         this.AlternativeDataEntry.openModal(id, 
-            this.props.alternatives[id], 
+            alternative, 
             this.props.criteria,
             this.props.scores,
             this.props.dispatch);

@@ -14,8 +14,8 @@ export default function weightedScores(weightedScores = [[]], action) {
                 }
                 normalizedScoresRow.forEach((normalizedScore, normalizedScoreIndex) =>{
                     let criteriaWeight = utilities.getCriteriaByID(action.criteria, normalizedScoreIndex).weight;
-                    console.log("crit: " + action.criteria[normalizedScoreIndex].id + " " + 
-                        "weight: " + action.criteria[normalizedScoreIndex].weight);
+                    //console.log("crit: " + action.criteria[normalizedScoreIndex].id + " " + 
+                    //    "weight: " + action.criteria[normalizedScoreIndex].weight);
                     let weightedScore = normalizedScore * criteriaWeight;
                     newWeightedScores[rowIndex][normalizedScoreIndex] = Number(weightedScore);
                 })

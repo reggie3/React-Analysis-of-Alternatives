@@ -23,7 +23,8 @@ module.exports = {
     preLoaders: [
         {
             test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
+            exclude: /(node_modules|bower_components|archive)/,
+            
             loader: 'source-map'
         }
     ],
@@ -31,6 +32,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.scss$/,
+                exclude: /(archive)/,
                 include: /styles/,
                 loaders: [
                     'style',
@@ -41,6 +43,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
+                exclude: /(archive)/,
                 loaders: [
                     'style',
                     'css',
@@ -51,6 +54,7 @@ module.exports = {
             // http://humaan.com/getting-started-with-webpack-and-react-es6-style/
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
+                exclude: /(archive)/,
                 loaders: [
                     'url?limit=8192',
                     'img'
@@ -58,11 +62,12 @@ module.exports = {
             },
             {
                 test: /\.html$/,
+                exclude: /(archive)/,
                 loader: "html"
             },
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules|bower_components|archive)/,
                 loader: 'babel',
                 query: {
                     presets: ['es2015', 'react']
@@ -70,6 +75,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
+                exclude: /(archive)/,
                 loaders: ['style', 'css', 'less']
             },
 

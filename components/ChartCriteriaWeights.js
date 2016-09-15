@@ -43,7 +43,7 @@ class ChartCriteriaWeights extends Component {
                         margin={{ top: 5, right: 30, left: 20, bottom: 15 }}
                         dataSets = {this.state.dataSets}>
                         <XAxis dataKey="name"/>
-                        <YAxis domain={[0, this.state.maxY]}/>
+                        <YAxis domain={[0, 10]}/>
                          <Bar  dataKey='weight' stroke='#8884d8' fill='#8884d8' />
                     </BarChart>
                 </ResponsiveContainer>

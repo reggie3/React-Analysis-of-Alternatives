@@ -13,36 +13,48 @@ import { Provider } from 'react-redux';
 let initialState = {
     alternatives: [{
         id: 0,
-        name: "alt 1",
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        name: "Red Mustang",
+        description: "Red Mustang at Sam's car Shack.",
     },
-    {
-        id: 1,
-        name: "alt 2",
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    }],
+        {
+            id: 1,
+            name: "Blue Camaro",
+            description: 'Lorem ipsum dolor.',
+        },
+        {
+            id: 2,
+            name: "Black Charger",
+            description: 'Lorem ipsum dolor sit amet.',
+        }],
     criteria: [{
         id: 0,
-        name: "1 crit",
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        weight: 2
+        name: "Highest Speed",
+        description: 'Lorem ipsum .',
+        weight: 8,
+        useInvertedScoring: false
     },
-    {
-        id: 1,
-        name: "2 crit",
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        weight: 2
-    },
-    {
-        id: 2,
-        name: "3 crit",
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        weight: 2
-    }],
-    scores: [[]],
+        {
+            id: 1,
+            name: "Lowest Price",
+            description: 'Lorem ipsum dolor .',
+            weight: 3,
+            useInvertedScoring: true
+        },
+        {
+            id: 2,
+            name: "Distance From Me",
+            description: 'Lorem ipsum dolor sit .',
+            weight: 5,
+            useInvertedScoring: true
+        }],
+    scores: [
+        [150, 17000, 90],
+        [120, 15000, 25],
+        [90, 19000, 50]
+    ],
     normalizedScores: [[]],
     weightedScores: [[]],
-    activeGraphIndex: 1,
+    activeGraphIndex: 0,
     graphNames: [
         "Criteria Weights",
         "Raw Scores",
